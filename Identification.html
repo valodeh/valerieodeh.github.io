@@ -3,6 +3,25 @@
 <html>
 	<head>
 		<title>Valerie Y. Odeh Couvertier</title>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+		
+		<script>
+			MathJax = {
+			  tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']]
+			  }
+			};
+		</script>
+		<script id="MathJax-script" async
+			  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+		</script>
+		
+		
+		
+		
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -39,29 +58,89 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h1 style="font-size:30px;">Valerie Y. Odeh-Couvertier</h1> 
-											<p style="font-size:18px;">About</p>
+											<h1 style="font-size:30px;">Homework #3: Identification</h1> 
+											<p style="font-size:18px;">Quasi-experimental designs for learning systems</p>
 										</header>
-										<p style="font-size:14px;">I am a Ph.D. student in the Industrial and Systems Engineering Department at the University of Wisconsin-Madison. My research interests fall in the area of causal inference, data analysis, and risk prediction approaches from observational data with a focus on healthcare applications. As part of my research, I collaborate with UW Health and I am particularly interested in answering <i>what if?</i> questions using causal inference to aid in the decision making of admission processes and care transitions. My anticipated graduation is May 2024. </p>
-										<p style="font-size:14px;">Prior to UW Madison, I obtained my bachelor's and master's degree in Industrial Engineering at the University of Puerto Rico-Mayagüez (UPRM). During my master’s degree, I worked with the NSF Engineering Research Center for Cell Manufacturing Technologies (CMaT) developing a data-driven modeling pipeline for relating CAR-T cell phenotype to multi-omics information. Aside from research, I worked as an industrial engineer at HP Inc. and Eli Lilly del Caribe. </p>
+
+										<p style="font-size:18px;">Identification of Average Causal Effect</p>
+										<p style="font-size:14px;">Our first task is to derive conditions that allow us to re-write our causal effect $\beta_i(y)$ as a function of only observed random variables $(X_j,A_j,Y_j)$ ($j \leq i$).</p>
+										<p style="font-size:14px;">We start with two familiar assumptions of causal inference$^1$:</p>
+
+										<p style="font-size:14px;"> <b>Assumption 1</b> (Consistency) $Y_i(\bar{A}_{i-1},a_i)=Y_i$ </p>
+										<p style="font-size:14px;"> <b>Assumption 2</b> (Positivity) $0< P(A_i=a_i|g_i(X_i) \in W_i)<1 $ for $a_i \in \{0,1\}$  </p>
+										<p style="font-size:14px;"> <b>Assumption 3</b> (Local randomization) $Y_i(\bar{A}_{i-1},a_i) \mathrel{\unicode{x2AEB}} A_i  | g_i(X_i) \in W_i$ </p>
 										
+										<p style="font-size:14px;">Specifically, consistency requires that the intervention is well-defined in which the observed outcome of a patient who received treatment $a_i$ will equal the potential outcome $Y_i(\bar{A}_{i-1},a_i)$. Positivity holds if every patient has a positive probability of being assigned to either treatment value (falls prevention clinic or not) given that their risk score $R_i$ falls inside the window $W_i$. Local randomization, also referred to as exchangeability, holds if potential outcomes are independent from treatment. Broadly speaking, this means that actual outcomes are representative of potential outcomes. </p>
+
+
+									
+										<p style="font-size:16px;"><b>No Interference or Learning Assumption</b></p>
+
+										<p style="font-size:14px;"> <b>Assumption 4</b> (Invariant risk prediction and cutoff) For all $i$: $C_i=c$ and $g_i=g$; therefore $W_i=w$. </p>
+										<p style="font-size:14px;"> <b>Proposition 1</b> (No interference) If $Y_i(a_1,\cdots,a_{i-1},a_i) = Y_i(b_1,\cdots,b_{i-1},a_i)$ for any $a_1,\cdots,a_{i-1},b_1,\cdots,b_{i-1} \in \{0,1\}$. Then, $Y_i(\bar{A}_{i-1},a_i) \equiv Y_i(a_i)$, for all $i$ such that $R_i \in w$. </p>
 										
+										<p style="font-size:14px;"> Assumption 4 requires that $C_i$ be a constant $c$ and that the risk prediction algorithm $g_i$ be also a constant $g$ (i.e. independent of all random variables). In such a case, the window will be same for everyone $W_i=w$. Proposition 1 specifies that the potential outcome of patient $i$ depends only on their risk score $R_i$ and their treatment assignment $a_i$. For simplicity and abusing notation, we can say that, $Y_i(\bar{A}_{i-1},a_i) \equiv Y_i(a_i)$, as a consequence of no interference. This implies that each patient has exactly two potential outcomes, $Y_i(0)$ and $Y_i(1)$, that do not depend on other individuals’ treatment values. Our first step then is to nonparametrically identify the effect under these assumptions.  Our first result says that, if, there is no interference between units/patients, then Assumption 3 implies that the effect of interest can be identified. </p>
+								
+										<p style="font-size:14px;"> <b>Proposition 2</b> Suppose that there is no interference between units (Proposition 1 i.e., that $Y_i(\bar{A}_{i-1},a_i) \equiv Y_i(a_i)$ for all $i=1,\ldots,n$), and that consistency (Assumption 1), positivity (Assumption 2), and local randomization hold (Assumption 3).  Then, in this case, the conditional average treatment effect of interest can be identified.  Namely,</p>
+									
+										<p style="font-size:14px;"> $$E[Y_i(\bar{A}_{i-1},a_i)| g_i(X_i) \in w] = E[Y_i | A_i=a_i, g_i(X_i) \in w]$$</p>
+								
+										<p style="font-size:14px;"> <b>Proof</b></p>
+
+										<p style="font-size:14px;"> We first note that under positivity (Assumptions 2) and local randomization (Assumption 3) we have the following inequality:</p>
+										<p style="font-size:14px;"> $$E[Y_i(a_i) | g_i(X_i) \in w] = E[Y_i(a_i) | A_i=a_i, g_i(X_i) \in w]$$</p>
+										<p style="font-size:14px;"> By local randomization (Assumption 3) the following equality holds:</p>
+										<p style="font-size:14px;"> $$= E[Y_i(A_i) | A_i=a_i, g_i(X_i) \in w]$$</p>
+										<p style="font-size:14px;"> By consistency (Assumption 1) the following equality holds:</p>
+										<p style="font-size:14px;"> $$= E[Y_i | A_i=a_i, g_i(X_i) \in w]$$</p>
+
+										<p style="font-size:16px;"><b>Interference between units</b></p>
+										<p style="font-size:14px;">Now, we consider interference between units ($Y_i(\bar{A}_{i-1},a_i)$). For simplicity we will start by considering the scenario with $i=2$ and initially allow interference only from $X_1$ and $A_1$. This scenario is depicted in the SWIG shown below:</p>
+				
+
+										<figure>
+											<img src="images/SWIG.png"  >
+											<figcaption>Fig.1 SWIG when $i=2$, assuming no direct effect between outcomes.</figcaption>
+										</figure>
+
+										<br>
+
+										<p style="font-size:14px;">For this scenario we would like to be able to identify the following causal effect:</p>
+										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2] $$</p>
+										
+										<br>
+
+										<p style="font-size:14px;"> My initial try at identifying this effect is shown below:</p>
+										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2] $$</p>
+
+										<p style="font-size:14px;">Using law of iterated expectation, we have:</p>
+										<p style="font-size:14px;"> $$=\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2] $$</p>
+										<p style="font-size:14px;"> where, $$h(R_2(a_1))=E[Y_2(a_1,a_2)|R_2(a_1), R_2 \in w_2]=E[Y_2(a_1,a_2)|A_1=a_1, A_2=a_2, R_2(a_1), R_2 \in w_2]$$ By using backdoor adjustment, since, $R_2(a_1)$ d separates $A_2(a_1)|a_2$ and $Y_2(a_1,a_2).$ </p>
+
+										<p style="font-size:14px;"> However, $R_2(a_1)$ depends on $A_1$, therefore, we need to block the association between $A_1|a_1$ and $R_2(a_1)$. Using backdoor adjustment, we can block this association using $R_1$. Therefore: </p>
+
+										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2]=\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2, R_1=r] $$</p>
+
+										<p style="font-size:16px;"><b>Concluding remarks</b></p>
+
+										<p style="font-size:14px;">In the simple case, where interference between units was not allowed, identification was straightforward. However, when allowing interference between units, the problem becomes more challenging as shown in the second part of the analysis. This analysis is still a work in progress and more steps will be added in the future. Moreover, for my particular research question, the challenges do not stop there, we ultimately want to be able to identify the causal effect of interest allowing for interference between $n$ units and also a direct effect between units outcomes, as shown in our initial definition of the problem. As mentioned, identification in our particular scenario is not trivial and is still a work in progress. </p>
+				
+										  
+										
+										<p style="font-size:16px;">References</p>
+
+										<ol>
+											<li>Miguel A Hernan and James M Robins. Causal inference: what if. Boca Raton: Chapman &
+												Hall/CRC, 2020.</li>
+										</ol>
+
+
+
 										<ul class="actions">
-											<li><a href="doc/CV_ValerieOdeh_2022.pdf" class="button big">Curriculum Vitae</a></li>
-											<li><a href="https://scholar.google.com/citations?user=nGDQ7dEAAAAJ&hl=en&oi=ao" class="button big">Google Scholar</a></li>
+											<li><a href="index.html" class="button big">Homepage</a></li>
 										</ul>
 
-								
-
-
-
-
-
-
 									</div>
-									<span class="image object">
-										<img src="images/me.JPG" >
-									</span>
 								</section>
 
 							<!-- Section 

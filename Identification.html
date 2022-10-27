@@ -114,12 +114,12 @@
 										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2] $$</p>
 
 										<p style="font-size:14px;">Using law of iterated expectation, we have:</p>
-										<p style="font-size:14px;"> $$=\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2] $$</p>
+										<p style="font-size:14px;"> $$=\underset{R_2(a_1)}E[E[h(R_2(a_1))]|R_2 \in w_2] $$</p>
 										<p style="font-size:14px;"> where, $$h(R_2(a_1))=E[Y_2(a_1,a_2)|R_2(a_1), R_2 \in w_2]=E[Y_2(a_1,a_2)|A_1=a_1, A_2=a_2, R_2(a_1), R_2 \in w_2]$$ By using backdoor adjustment, since, $R_2(a_1)$ d separates $A_2(a_1)|a_2$ and $Y_2(a_1,a_2).$ </p>
 
 										<p style="font-size:14px;"> However, $R_2(a_1)$ depends on $A_1$, therefore, we need to block the association between $A_1|a_1$ and $R_2(a_1)$. Using backdoor adjustment, we can block this association using $R_1$. Therefore: </p>
 
-										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2]=\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2, R_1=r] $$</p>
+										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2]=\underset{R_2(a_1)}E[E[h(R_2(a_1))]|R_2 \in w_2, R_1=r] $$</p>
 
 										<p style="font-size:16px;"><b>Concluding remarks</b></p>
 

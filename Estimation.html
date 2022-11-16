@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Valerie Y. Odeh Couvertier</title>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+		
+		<script>
+			MathJax = {
+			  tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']]
+			  }
+			};
+		</script>
+		<script id="MathJax-script" async
+			  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+		</script>
+		
+		
+		
+		
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"></a>
+									<!-- 
+									<ul class="icons">
+										<li><a href="https://scholar.google.com/citations?user=nGDQ7dEAAAAJ&hl=en&oi=ao" class="icon brands fa fa-google"><span class="label">GoogleScholar</span></a></li>
+										<li><a href="doc/CV_ValerieOdeh_2022.pdf" class="icon file type fa fa-file"><span class="label">CV</span></a></li>
+									
+									
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									
+									</ul>--->
+									
+								</header>
+								
+
+							<!-- Banner -->
+								<section id="banner">
+									<div class="content">
+										<header>
+											<h1 style="font-size:30px;">Homework #4: Estimation</h1> 
+											<p style="font-size:18px;">Quasi-experimental designs for learning systems</p>
+										</header>
+
+										<p style="font-size:18px;">Estimation algorithm: Regression discontinuity design under local randomization </p>
+										
+										<p style="font-size:14px;">To introduce our estimation approach, a review of the variables defined in the Definition section is presented. Let $i$ index a person in order of arrival to a learning system with $i=1,\ldots,n$. We define the following random variables: $X_i \in \mathcal{X}$ is a vector of patient characteristics (model input); $A_i \in \{0,1\}$ indicates assignment to intervention; and $Y_i$ is the outcome of interest that is observed. Specifically, patients characteristics $X_i$ for each patient $i$ is input into a risk prediction model $g_i:  \mathcal{X} \rightarrow \mathbb{R}$ which results in predicted risk score $R_{i} := g_i(X_i)$. We consider a <b>sharp regression discontinuity (RD) design under local randomization</b>, assuming initially perfect compliance for simplicity. Then, $C_i$ is the risk cutoff that patient $i$ was subject to for assigning intervention. Patients with $R_{i} \geq C_i$ are assigned to the treatment condition, and patients with $R_{i} &lt; C_i$ are assigned to the control condition, leading to $A_{i}=I(R_{i}\geq C_i)$. The local randomization RD design considers patients near a window around the cutoff $C_i$ as randomly assigned to treatment. The window around the neighborhood of the cutoff $C_i$ is denoted by $W_i=[C_i - \underset{\bar{}}{r}, C_i + \bar{r}]$ on the support of the risk score $R_i$ and containing the cutoff $C_i$.</p>
+
+										<p style="font-size:14px;">To summarize, consider the following random variables and functions:</p>
+
+										<ul>
+											<li>$X_i$ --- person characteristics (model input)</li>
+											<li>$A_i$ --- binary assignment to intervention</li>
+											<li>$Y_i$ --- outcome of interest</li>
+											<li>$g_i$ --- risk prediction model (function)</li>
+											<li>$R_i$ --- predicted risk (model output)</li>
+											<li>$C_i$ --- risk cutoff for assigning intervention</li>
+											<li>$W_i$ --- window around $C_i$</li>
+										</ul>
+										
+										<p style="font-size:14px;">RD design is a quasi-experimental design for evaluating the effect of an intervention on an outcome where the intervention assignment is determined using a threshold or cutscore $c$ on a quantitative covariate known as the forcing variable.$^{1-2}$ In our particular scenario, the forcing variable is the predicted risk $R_i$ and the risk cutoff for assigning intervention is $C_i$. </p>
+										<p style="font-size:14px;">The traditional RD design builds upon continuity assumptions which makes use of nonparametric local polynomial techniques for estimating the average treatment effect near the cutoff $c$.$^3$ However, for our specific scenario we will consider <b>RD designs under local randomization</b> which can be interpreted as a locally randomized experiment in which units near a window $w$ around the cutoff $c$ are viewed as randomly assigned to treatment.$^4$ This local randomization approach considers slightly stronger assumptions than the typical continuity assumptions required for the traditional RD analysis. Figure 1 presents a schematic representation of RD designs for (a) continuity-based RD designs and (b) RD designs under local randomnization.$^5$ </p>
+										<p style="font-size:14px;">Formally, within the continuity-based framework, represented in Figure 1a, the canonical sharp RD (SRD) treatment effect is</p>
+										<p style="font-size:14px;">$$\tau_{SRD}=E[Y_i(1)-Y_i(0)|R=c]=\lim_{r\downarrow c}E[Y_i|R_i=r]-\lim_{r\uparrow c}E[Y_i|R_i=r]$$</p>
+
+										<p style="font-size:14px;">In contrast, in the local randomization RD design, represented in Figure 1b, $E[Y_i(1)|R_i=r]$ and $E[Y_i(0)|R_i=r]$ are constant for all values of the score inside the local randomization neighborhood $w$; the average treatment effect is therefore the constant vertical distance between these functions inside $w$. For the $N_w$ units with $R_i \in w$, , the sharp local randomization (SLR) RD treatment effect can therefore be defined as </p>
+										<p style="font-size:14px;">$$\tau_{SLR}=\frac{1}{N_w} \sum_{i:R_i \in w}E_w[Y_i(1)-Y_i(0)]=\frac{1}{N_w} \sum_{i:R_i \in w}E_w[\frac{A_i Y_i}{P_w(A_i=1)}]-\frac{1}{N_w} \sum_{i:R_i \in w}E_w[\frac{(1-A_i) Y_i}{1-P_w(A_i=1)}]$$</p>
+										<p style="font-size:14px;">where $E_w$ and $P_w$, denote, respectively expectation and probability computed conditionally for all units with $R_i \in W$.</p>
+										
+										<figure>
+											<img src="images/RDcomp.jpeg" width="800" height="400"  >
+											<figcaption>Fig.1 Schematic representation of (a) traditional continuity-based RD designs, and (b) RD design under local randomnization. In this case $X$ denotes the score (which for purposes of this analysis is equivatent to $R$); $c$ denotes the cutoff; $w$ denotes the half-length of the local randomization window;and $\tau_{SRD}$ and $\tau_{SLR}$ denote the RD treatment effect at the cutoff and in the window, respectively.</figcaption>
+										</figure>
+
+										<br>
+
+										<p style="font-size:14px;">The main assumption behind RD designs under local randomization is that inside a window $W_i$ patients near the risk prediction cutoff are as-if assigned to treatment. </p>
+										
+										<p style="font-size:14px;">Assumption 1 (Local Randomization) There exists a window $W_i=[C_i - \underset{\bar{}}{r}, C_i + \bar{r}]$ with $\underset{\bar{}}{r} < C_i < \bar{r}$ such that for every unit $i$ with $R_i \in W_i$:</p>
+										<p style="font-size:14px;">(a) $F_{R_i|R_i \in W_i}(r)=F(r)$, and </p>
+										<p style="font-size:14px;">(b) $Y_i(r)=Y_i(aW_i)$ $\forall i$ </p>
+
+										<p style="font-size:14px;">In other words, inside $W_i$ two conditions hold (a) that the joint probability distribution of scores inside $W_i$ is known, and (b) that the potential outcomes are not affected by the score in $W_i$. Condition (a) assumes that for all units inside $W_i$ the assignment mechanism of the score is known. Condition (b) prevents potential outcomes from being a function of the score inside $W_i$.   </p>
+
+										<p style="font-size:18px;">Steps</p>
+
+										<p style="font-size:14px;"> <b>Step 1: Randomization mechanism</b> The first step for applying randomization inference in a RD design is to choose a randomization mechanism for $A_{W_i}$ that is assumed to describe the data generating process that places units on either side of the cutoff. Common methods include fixed-margins randomization or complete randomization, where each treatment assignment chooses a given number of treated units among the $n_{W_i}$ units in $W_i$, and Bernoulli mechanism, where units are assigned to treatment following independent Bernouilli trials.</p>
+										<p style="font-size:14px;"> <b>Step 2: Test of no effect</b> After choosing an appropriate randomization mechanism, we can test the sharp null hypothesis of no treatment effect under Assumption 1. No treatment effect means observed outcomes are fixed regardless of the realization of $A_{W_i}.$ 
+										Under this null hypothesis, potential outcomes are not a function of treatment status inside $W_i$; that is, $y_i(a)=y_i$ for all $i$ within the window and for all $a \in W_i$, where $y_i$ is a fixed scalar. The distribution of any test statistic $T(A_{W_i}, y_{W_i})$ is known, since it depends only on the known distribution of $A_{W_i}$ and $y_{W_i}$, the fixed vector of observed responses. The test thus consists of computing a significance level for the observed value of the test statistic. Any test statistic may be used such as difference-in-means, Kolmogorov-Smirnov test statistic, and difference-in-quantiles.</p>
+										<p style="font-size:14px;"> <b>Step 3: Window selection</b> The distribution of the preintervention covariates and postintervention outcomes inside the window $W_i$ where local randomization holds should be the same between treated and untreated patients.     </p>
+
+										<ol>
+											<li>Set an initial arbitrary small window, $\hat{W}_1$
+											</li>
+											<li>Conduct a test of the null hypothesis of no effect of the treatment on the covariate using some test statistic, for each of the $k$ covariates. Take the minimum p-value from the $k$ tests. 
+											</li>
+											<li> If the minimum p-value obtained in step 2, $p1$, is less than some prespecified level—
+												for example, 0.15—the initial window was too large; decrease the initial window
+												and start over. If the initial window cannot be decreased (for example, because a
+												smaller window would contain too few data points), conclude that $W_i$ cannot be
+												found. Otherwise, if $p1 ≥ 0.15$, choose a larger window $\hat{W}_2 \supset \hat{W}_2$, and go back to
+												step 2 to calculate $p2$. Repeat the process until the minimum p-value is less than
+												0.15. The selected window is the largest window such that the minimum p-value
+												is larger than or equal to 0.15 in that window and in all windows contained in it.
+											</li>
+										</ol>
+										<p style="font-size:14px;"> The resulting window, $\hat{W}$, is the estimate of $W_i$. The idea of this algorithm is to
+											choose the largest window (or one of the largest windows) in which all the covariates
+											are balanced.</p>
+
+
+										<p style="font-size:18px;">Data</p>
+
+										<p style="font-size:14px;">Ultimately, the goal of this project is to use data from UW Health electronic health records as a case study to test the algorithms developed; these records are regulated by both HIPPA and by the Health Sciences IRB at UW Madison.</p>
+										<p style="font-size:14px;">While data is available, we will work on creating synthetic datasets to reflect person-level characteristics over time as it relates to a risk prediction algorithm (input features, output prediction, ensuing intervention, and realized outcome.</p>
+
+										<p style="font-size:14px;">We will initially explore the <b>no interference scenario</b>, where there is no interference between patients. For this we created a synthetic dataset using R with $n=10000$ to evaluate estimation: </p>
+
+										<p style="font-size:14px;"><b>We define some initial parameters to allow estimation. We assign arbitrary values to these parameters as follows: </b></p>
+										<p style="font-size:14px;">$\alpha=1$</p>
+										<p style="font-size:14px;">$\beta=2$</p>
+										<p style="font-size:14px;">$\zeta=3$</p>
+										<p style="font-size:14px;">$\delta=4$</p>
+
+										<p style="font-size:14px;"><b>We also assign arbitrary values for the cutoff $C_i$ and for the size of the window:</b> </p>
+										<p style="font-size:14px;">$C_i=3$ (assuming for now all patients have the same cutoff)</p>
+										<p style="font-size:14px;">$\underset{\bar{}}{r}=\bar{r}=0.5$</p>
+										
+										<p style="font-size:14px;"><b>Equations used for generating the synthetic dataset:</b></p>
+										
+
+										<p style="font-size:14px;">$X_i \sim N(0,1)$</p>
+										<p style="font-size:14px;">$R_i=\beta+\alpha X_i$</p>
+										<p style="font-size:14px;">$A_i=I(R_i + \varepsilon \geq C_i)$, where $\varepsilon \sim N(0,1)$</p>
+										<p style="font-size:14px;">$Y_i=\zeta X_i + \delta A_i + \varepsilon$, where $\varepsilon \sim N(0,1)$</p>
+
+										<p style="font-size:14px;"><b>After generating the synthetic data, we need to identify the patients who fall inside the window:</b></p>
+
+										<p style="font-size:14px;">$W=I(C - \underset{\bar{}}{r} \leq R \leq C + \bar{r})$, where $\varepsilon \sim N(0,1)$</p>
+								
+
+										<p style="font-size:18px;">Algorithm's Performance</p>
+
+										<p><a href="HWestimation.html">Click here to see code for generating synthetic data and estimation here!</a></p>
+
+										<p style="font-size:14px;"> Results from the simulation above prove how inside the window, we can treat data as a randomized experiment. We were able to estimate the average treatment effect inside the window assuming that these units can be interpreted as randomly assigned to treatment.</p>
+										<p style="font-size:14px;"> Looking at the code results of the estimation: </p>
+										<p style="font-size:14px;"> $ATE=4.33$ </p>
+										<p style="font-size:14px;"> This result proves that our estimation results are correct given that $\beta=4$ was the parameter used to influence the treatment, $A$, in the equations for the data generation, which matches the ATE results obtained.</p>
+										<p style="font-size:14px;"> In general, the RD design under local randomnization has been proved to be useful in many cases, including when the dataset of interest is small, the running variable is not continuous, matching techniques are used, or multiple RD cutoffs are analyzed.$^4$ </p>
+
+										
+										
+										
+										  
+										<p style="font-size:16px;">References</p>
+
+										<ol>
+											<li>Guido W Imbens and Thomas Lemieux. Regression discontinuity designs: A guide to practice.
+												Journal of Econometrics, 142(2):615–635, 2008.
+											</li>
+											<li>David S Lee and Thomas Lemieux. Regression discontinuity designs in economics. Journal of
+												Economic Literature, 48(2):281–355, 2010.
+											</li>
+											<li>Jinyong Hahn, Petra Todd, and Wilbert Van der Klaauw. Identification and estimation of
+												treatment effects with a regression-discontinuity design. Econometrica, 69(1):201–209, 2001.
+											</li>
+											<li>Matias D Cattaneo, Brigham R Frandsen, and Rocio Titiunik. Randomization inference in the
+												regression discontinuity design: An application to party advantages in the us senate. Journal
+												of Causal Inference, 3(1):1–24, 2015.
+											</li>
+											<li>Cattaneo, Matias D., and Rocio Titiunik. "Regression discontinuity designs." Annual Review of Economics 14 (2022): 821-851.
+											</li>
+
+
+
+											
+											
+										</ol>
+
+
+
+										<ul class="actions">
+											<li><a href="index.html" class="button big">Homepage</a></li>
+										</ul>
+
+									</div>
+								</section>
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Erat lacinia</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon fa-gem"></span>
+											<div class="content">
+												<h3>Portitor ullamcorper</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-paper-plane"></span>
+											<div class="content">
+												<h3>Sapien veroeros</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-rocket"></span>
+											<div class="content">
+												<h3>Quam lorem ipsum</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-signal"></span>
+											<div class="content">
+												<h3>Sed magna finibus</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+									</div>
+								</section>
+
+								-->
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Ipsum sed dolor</h2>
+									</header>
+									<div class="posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+											<h3>Interdum aenean</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+											<h3>Nulla amet dolore</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+											<h3>Tempus ullamcorper</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+											<h3>Sed etiam facilis</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
+											<h3>Feugiat lorem aenean</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
+											<h3>Amet varius aliquam</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+									</div>
+								</section>-->
+
+						</div>
+					</div>
+
+					
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<!-- 
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li><a href="elements.html">Elements</a></li>
+
+										-->
+
+										<li>
+											<span class="opener">MATH 888: Causal Inference</span>
+											<ul>
+												<li><a href="Definition.html">Definition</a></li>
+												<li><a href="Identification.html">Identification</a></li>
+												<li><a href="Estimation.html">Estimation</a></li>
+												<li><a href="#">Sensitivity</a></li>
+												<li><a href="#">Conclusion</a></li>
+											</ul>
+										</li>
+									</ul>	
+								</nav>
+										
+										<!-- 
+										<li><a href="#">Etiam Dolore</a></li>
+										<li><a href="#">Adipiscing</a></li>
+										<li>
+											<span class="opener">Another Submenu</span>
+											<ul>
+												<li><a href="#">Lorem Dolor</a></li>
+												<li><a href="#">Ipsum Adipiscing</a></li>
+												<li><a href="#">Tempus Magna</a></li>
+												<li><a href="#">Feugiat Veroeros</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Maximus Erat</a></li>
+										<li><a href="#">Sapien Mauris</a></li>
+										<li><a href="#">Amet Lacinia</a></li>
+									</ul>
+								</nav>
+
+								-->
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+								-->
+
+
+
+
+								
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">odehcouverti@wisc.edu</a></li>
+										<li class="icon solid fa-home">Office: 3011
+											Mechanical Engineering
+											1513 University Ave,
+											Madison, WI 53706<br />
+										
+									</ul>
+								</section>
+
+							<!--Footer -->
+								<footer id="footer">
+
+								</footer>
+
+						</div>
+						
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

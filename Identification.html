@@ -117,13 +117,20 @@
 										<p style="font-size:14px;"> $$=\underset{R_2(a_1)}E[E[h(R_2(a_1))]|R_2 \in w_2] $$</p>
 										<p style="font-size:14px;"> where, $$h(R_2(a_1))=E[Y_2(a_1,a_2)|R_2(a_1), R_2 \in w_2]=E[Y_2(a_1,a_2)|A_1=a_1, A_2=a_2, R_2(a_1), R_2 \in w_2]$$ By using backdoor adjustment, since, $R_2(a_1)$ d separates $A_2(a_1)|a_2$ and $Y_2(a_1,a_2).$ </p>
 
-										<p style="font-size:14px;"> However, $R_2(a_1)$ depends on $A_1$, therefore, we need to block the association between $A_1|a_1$ and $R_2(a_1)$. Using backdoor adjustment, we can block this association using $R_1$. Therefore: </p>
+										<p style="font-size:14px;"> However, $R_2(a_1)$ depends on $A_1$, therefore, we need to block the association between $A_1|a_1$ and $R_2(a_1)$ (Figure 1). Again, using law of iterated expectation and backdoor adjustment, we can block this association using $R_1$. Therefore:</p>
 
-										<p style="font-size:14px;"> $$E[Y_2(a_1, a_2) | R_2 \in w_2]=\underset{R_2(a_1)}E[E[h(R_2(a_1))]|R_2 \in w_2, R_1=r] $$</p>
+										<p style="font-size:14px;"> $$\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2]=E[E[h(R_2(a_1))|R_2 \in w_2, R_1]|R_2 \in w_2] $$</p>
+										<p style="font-size:14px;"> $$\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2]=E[E[h(R_2)|R_2 \in w_2, A_1=a_1, R_1]|R_2 \in w_2]$$</p>
+										<p style="font-size:14px;"> $$\underset{R_2(a_1)}E[h(R_2(a_1))|R_2 \in w_2]=E[E[E[Y_2|A_1=a_1, A_2=a_2, R_2, R_2 \in w_2]|R_2 \in w_2, A_1=a_1, R_1]|R_2 \in w_2] $$</p>
+
+										<p style="font-size:14px;"> which completes our identification proof for this interference scenario.</p>
+
+
+
 
 										<p style="font-size:16px;"><b>Concluding remarks</b></p>
 
-										<p style="font-size:14px;">In the simple case, where interference between units was not allowed, identification was straightforward. However, when allowing interference between units, the problem becomes more challenging as shown in the second part of the analysis. This analysis is still a work in progress and more steps will be added in the future. Moreover, for my particular research question, the challenges do not stop there, we ultimately want to be able to identify the causal effect of interest allowing for interference between $n$ units and also a direct effect between units outcomes, as shown in our initial definition of the problem. As mentioned, identification in our particular scenario is not trivial and is still a work in progress. </p>
+										<p style="font-size:14px;">In the simple case, where interference between units was not allowed, identification was straightforward. However, when allowing interference between units, the problem becomes more challenging as shown in the second part of the analysis. Moreover, for my particular research question, the challenges do not stop there, we ultimately want to be able to identify the causal effect of interest allowing for interference between $n$ units and also a direct effect between units outcomes, as shown in our initial definition of the problem. As mentioned, identification in our particular scenario is not trivial and is still a work in progress. </p>
 				
 										  
 										
@@ -274,7 +281,7 @@
 												<li><a href="Definition.html">Definition</a></li>
 												<li><a href="Identification.html">Identification</a></li>
 												<li><a href="Estimation.html">Estimation</a></li>
-												<li><a href="#">Sensitivity</a></li>
+												<li><a href="Sensitivity.html">Sensitivity</a></li>
 												<li><a href="#">Conclusion</a></li>
 											</ul>
 										</li>

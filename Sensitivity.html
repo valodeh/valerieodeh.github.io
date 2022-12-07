@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Valerie Y. Odeh Couvertier</title>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+		
+		<script>
+			MathJax = {
+			  tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']]
+			  }
+			};
+		</script>
+		<script id="MathJax-script" async
+			  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+		</script>
+		
+		
+		
+		
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"></a>
+									<!-- 
+									<ul class="icons">
+										<li><a href="https://scholar.google.com/citations?user=nGDQ7dEAAAAJ&hl=en&oi=ao" class="icon brands fa fa-google"><span class="label">GoogleScholar</span></a></li>
+										<li><a href="doc/CV_ValerieOdeh_2022.pdf" class="icon file type fa fa-file"><span class="label">CV</span></a></li>
+									
+									
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									
+									</ul>--->
+									
+								</header>
+								
+
+							<!-- Banner -->
+								<section id="banner">
+									<div class="content">
+										<header>
+											<h1 style="font-size:30px;">Homework #5: Sensitivity Analysis</h1> 
+											<p style="font-size:18px;">Quasi-experimental designs for learning systems</p>
+										</header>
+
+										<p style="font-size:18px;">What assumptions have you made that are important to your inferences/conclusions?</p>
+
+										<p style="font-size:14px;">An important, yet unmentioned assumption throughout this work is that of no unmeasured confounding present. In an observational study setting, this assumption will often be unsatisfied, and the potential impact of unmeasured confounding on effect estimates needs to be assessed. Even though inside the window $W_i$ we assume we are treating units as if randomly assigned to treatment, sensitivity and robustness analysis should be done to evaluate if our findings would continue to hold with changes to window choice and test statistics used to conduct our tests.</p>
+
+										
+
+
+										<p style="font-size:18px;">What alternatives to estimation/implementation/identification are available to investigate sensitivity of your conclusions/inferences to your assumptions? </p>
+
+										<p style="font-size:14px;"> <b>1. Sensitivity to model specification and window length</b></p>
+										<p style="font-size:14px;">Although the randomization inference framework provides a useful way of determining the size of the window (described in the <a href="Estimation.html">Estimation</a> section), we may need to explore how robust results are to several window lengths and parametric models. To do this, we need to use randomization inference methods to conduct a series of hypothesis test for different windows around the risk cutoff. The idea is simply to reestimate the RD treatment effect for neighborhood lengths that are smaller or larger than the one originally chosen. However, considering larger neighborhoods may not be justifiable if important covariates become imbalanced; in this case, the approach will be uninformative$^1$. </p>
+										<p style="font-size:14px;">For each window, we will consider a range of treatment effects under the null hypothesis. This will enable us to analyze the sensitivity of the “point estimates” by carrying out a family of hypothesis tests within and across windows. These methods may also be used to analyze the sensitivity to the specific parametric model by comparing the results of different models and then comparing the results. Therefore, we perform the test of the sharp null hypothesis of no treatment effect using different test statistics. Under Assumption 1 (described in the <a href="Estimation.html">Estimation</a> section), there is no relationship between the outcome and the score on either side of the threshold within the window$^1$. In this situation, performing randomization-based tests using the difference-in-means as a test statistic should yield the same results as using other test statistics (such as Kolmogorov-Smirnov or Wilcoxon-Mann-Whitney standardized statistic) that allow for a relationship between the conditional regression function and the score. This suggests using different test statistics in the same window as a robustness check.</p>
+
+										<p style="font-size:14px;"> <b>2. Sensitivity to unobserved confounders</b></p>
+										<p style="font-size:14px;">As an additional robustness check, we will assess the validity of results through a sensitivity analysis that considers how results vary under different degrees of departure from a randomized experiment, as suggested by Rosenbaum (2002)$^2$. Rosenbaum provides details of such an approach when the treatment is assumed to be randomly assigned conditionally on covariates. Under a randomization-type assumption, the probability of receiving treatment is equal for treated and control units. Therefore, the sensitivity analysis proposes a model for the odds of receiving treatment and allows the probability of receiving treatment to differ between groups and recalculates the p-values, confidence intervals or point estimates of interest. The analysis considers whether small departures from the randomization-type assumption would alter the conclusions from the study. If, for example, small differences in the probability of receiving treatment between treatment and control units lead to markedly different conclusions (i.e., if the null hypothesis of no effect is initially rejected but then ceases to be rejected), then we conclude that the results are sensitive and appropriately temper our confidence in the results.</p>
+										<p style="font-size:14px;">This Rosenbaum approach could be modified for our particular context and be directly applied inside the window, and allow for evaluationg different windows around the cutoff. Inside the window, our assumption is that the probability of receiving treatment is equal for all units; thus, a sensitivity analysis of this type could be applied directly to establish whether our conclusions survive under progressively different probabilities of receiving treatment for treated and control units inside $W_i$.</p>
+
+										<p style="font-size:14px;"> <b>Sensitivity Analysis Example</b></p>
+
+										<p><a href="SensitivityHW.html">Click here to see code for the sensitivity analysis example!</a></p>
+
+										<p style="font-size:14px;">We first begin by creating a synthetic dataset similar to the one done in the <a href="Estimation.html"> Estimation</a> section. However, we include two covariates instead of one and have our risk variable (running variable) centered at the cutoff. Therefore, our cutoff value is now $C=0$. We still use the parameter $\delta=4$ to influence the treatment.</p>
+										
+										<p style="font-size:14px;"> To implement RD design under local randomnization we use the R package <i><b>rdlocrand</b></i>$^3$ for the estimation and sensitivity analysis:</p>
+
+										<p style="font-size:14px;">After creating the synthetic dataset, we follow the steps presented in the <a href="Estimation.html"> Estimation</a> section for the window selection and test of no treatment effect. To do this we used the functions <i><b>rdwinselect</b></i>, for window selection, and <i><b>rdrandinf</b></i>, for test of no effect of treatment and ATE estimation, from the R package <i><b>rdlocrand</b></i>. </p>
+										
+										<ul>
+											<li style="font-size:14px;"> <i><b>rdwinselect.</b></i>This command uses finite-sample (but also large-sample) methods to select a window near the cutoff where the local randomization assumption
+											is most plausible, under some intuitive conditions. This command is called by
+											the rdrandinf command to select a data-driven window around the cutoff where
+											inference is conducted, but rdwinselect can also be used as a stand-alone command for analysis and falsification of RD designs under a local randomization
+											assumption.
+											</li>
+
+											<li style="font-size:14px;"> <i><b>rdrandinf.</b></i> This command implements several methods from the literature on
+											the analysis of experiments, including Fisher’s exact p-values and tests, Neyman’s
+											repeated sampling inference, and related methods. These methods rely on finitesample exact techniques (that is, randomization inference methods) and on particular large-sample approximations. The command offers point estimation, hypothesis testing, and confidence interval procedures under different assumptions,
+											allowing in particular for regression-based outcome transformations.
+											</li>
+										</ul>
+										
+										
+										<p style="font-size:14px;">After creating the window selection, test of no effect, and estimation, we perform the two sensitivity analysis discussed above. To do this we used the functions <i><b>rdsensitivity</b></i>, for assessing sensitivity to model specification and window length, and <i><b>rdrbounds</b></i>, for assessing sensitivity to unmeasured confounding, from the R package <b>rdlocrand</b>. </p>
+									
+										<ul>
+											<li style="font-size:14px;"> <i><b>rdsensitivity.</b></i>  This command uses randomization inference methods to conduct
+											a sequence of hypothesis tests for different windows around the RD cutoff, which
+											can be used to assess the sensitivity of the methods and to construct confidence
+											intervals by inversion.
+											</li>
+
+											<li style="font-size:14px;"> <i><b>rdrbounds.</b></i> This command implements randomization-based sensitivity analysis
+											(Rosenbaum 2002) in the context of RD designs under local randomization.
+											</li>
+
+										</ul>
+										
+										
+												
+										
+		
+										<p style="font-size:18px;">How would your inferences/conclusions change (if at all) if your assumptions were violated?</p>
+
+										<p style="font-size:14px;">Local randomization literature only recommends the implementation of RD designs under local randomization when the local randomization assumption is justified$^4$. When this local randomization is plausible, the RD design under local randomization can be used for both conducting inference in RD designs and for robustness checks on the traditional RD design  based on nonparametic local polynomial techniques. </p>
+										<p style="font-size:14px;">If even in a small window around the cutoff the sharp null hypothesis of no effect is rejected for predetermined covariates, the local randomization method should not be used for interpretation of their designs, and hence should pay special attention to the plausibility of the continuity assumptions imposed by the standard approach.</p>
+
+
+
+										<p style="font-size:18px;">What assumptions (if at all) cannot be investigated in any principled way?</p>
+
+										<p style="font-size:14px;">Relative to other nonexperimental designs, the RD design offers a wealth of design-specific validation and falsification methods to assess the plausibility of the core RD assumptions. Regardless of whether the continuity or local randomization framework is used, a fundamental step in any RD analysis is to provide supporting empirical evidence$^4$. This evidence can only be indirect, because the core RD assumptions are inherently untestable. Nonetheless, there are important steps that can be taken to assess their plausibility in most settings and evaluate the potential validity of the RD design as well as the overall robustness of the main empirical findings, as shown in the sensitivity analysis section. </p>
+
+										
+										
+										
+										
+										  
+										<p style="font-size:16px;">References</p>
+
+										<ol>
+										
+											<li>Matias D Cattaneo, Brigham R Frandsen, and Rocio Titiunik. Randomization inference in the
+												regression discontinuity design: An application to party advantages in the us senate. Journal
+												of Causal Inference, 3(1):1–24, 2015.
+											</li>
+
+											<li>Rosenbaum, P.R. (2002). Sensitivity to Hidden Bias. In: Observational Studies. Springer Series in Statistics. Springer, New York, NY. https://doi.org/10.1007/978-1-4757-3692-2_3.
+											</li>
+
+											<li>Cattaneo, M. D., Titiunik, R., & Vazquez-Bare, G. (2018). rdlocrand: Local Randomization Methods for RD Designs. R package version 0.3. URL: https://CRAN. R-project. org/package= rdlocrand.
+											</li>
+											
+											<li>Cattaneo, Matias D., and Rocio Titiunik. "Regression discontinuity designs." Annual Review of Economics 14 (2022): 821-851.
+											</li>
+											
+										</ol>
+
+
+
+										<ul class="actions">
+											<li><a href="index.html" class="button big">Homepage</a></li>
+										</ul>
+
+									</div>
+								</section>
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Erat lacinia</h2>
+									</header>
+									<div class="features">
+										<article>
+											<span class="icon fa-gem"></span>
+											<div class="content">
+												<h3>Portitor ullamcorper</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-paper-plane"></span>
+											<div class="content">
+												<h3>Sapien veroeros</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-rocket"></span>
+											<div class="content">
+												<h3>Quam lorem ipsum</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-signal"></span>
+											<div class="content">
+												<h3>Sed magna finibus</h3>
+												<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											</div>
+										</article>
+									</div>
+								</section>
+
+								-->
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Ipsum sed dolor</h2>
+									</header>
+									<div class="posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+											<h3>Interdum aenean</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+											<h3>Nulla amet dolore</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+											<h3>Tempus ullamcorper</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+											<h3>Sed etiam facilis</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
+											<h3>Feugiat lorem aenean</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
+											<h3>Amet varius aliquam</h3>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+											<ul class="actions">
+												<li><a href="#" class="button">More</a></li>
+											</ul>
+										</article>
+									</div>
+								</section>-->
+
+						</div>
+					</div>
+
+					
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<!-- 
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li><a href="elements.html">Elements</a></li>
+
+										-->
+
+										<li>
+											<span class="opener">MATH 888: Causal Inference</span>
+											<ul>
+												<li><a href="Definition.html">Definition</a></li>
+												<li><a href="Identification.html">Identification</a></li>
+												<li><a href="Estimation.html">Estimation</a></li>
+												<li><a href="Sensitivity.html">Sensitivity</a></li>
+												<li><a href="#">Conclusion</a></li>
+											</ul>
+										</li>
+									</ul>	
+								</nav>
+										
+										<!-- 
+										<li><a href="#">Etiam Dolore</a></li>
+										<li><a href="#">Adipiscing</a></li>
+										<li>
+											<span class="opener">Another Submenu</span>
+											<ul>
+												<li><a href="#">Lorem Dolor</a></li>
+												<li><a href="#">Ipsum Adipiscing</a></li>
+												<li><a href="#">Tempus Magna</a></li>
+												<li><a href="#">Feugiat Veroeros</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Maximus Erat</a></li>
+										<li><a href="#">Sapien Mauris</a></li>
+										<li><a href="#">Amet Lacinia</a></li>
+									</ul>
+								</nav>
+
+								-->
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+								-->
+
+
+
+
+								
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">odehcouverti@wisc.edu</a></li>
+										<li class="icon solid fa-home">Office: 3011
+											Mechanical Engineering
+											1513 University Ave,
+											Madison, WI 53706<br />
+										
+									</ul>
+								</section>
+
+							<!--Footer -->
+								<footer id="footer">
+
+								</footer>
+
+						</div>
+						
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

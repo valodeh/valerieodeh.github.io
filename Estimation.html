@@ -105,9 +105,9 @@
 										<p style="font-size:18px;">Steps</p>
 
 										<p style="font-size:14px;"> <b>Step 1: Randomization mechanism</b> The first step for applying randomization inference in a RD design is to choose a randomization mechanism for $A_{W_i}$ that is assumed to describe the data generating process that places units on either side of the cutoff. Common methods include fixed-margins randomization or complete randomization, where each treatment assignment chooses a given number of treated units among the $n_{W_i}$ units in $W_i$, and Bernoulli mechanism, where units are assigned to treatment following independent Bernouilli trials.</p>
-										<p style="font-size:14px;"> <b>Step 2: Test of no effect</b> After choosing an appropriate randomization mechanism, we can test the sharp null hypothesis of no treatment effect under Assumption 1. No treatment effect means observed outcomes are fixed regardless of the realization of $A_{W_i}.$ 
-										Under this null hypothesis, potential outcomes are not a function of treatment status inside $W_i$; that is, $y_i(a)=y_i$ for all $i$ within the window and for all $a \in W_i$, where $y_i$ is a fixed scalar. The distribution of any test statistic $T(A_{W_i}, y_{W_i})$ is known, since it depends only on the known distribution of $A_{W_i}$ and $y_{W_i}$, the fixed vector of observed responses. The test thus consists of computing a significance level for the observed value of the test statistic. Any test statistic may be used such as difference-in-means, Kolmogorov-Smirnov test statistic, and difference-in-quantiles.</p>
-										<p style="font-size:14px;"> <b>Step 3: Window selection</b> The distribution of the preintervention covariates and postintervention outcomes inside the window $W_i$ where local randomization holds should be the same between treated and untreated patients.     </p>
+										
+										
+										<p style="font-size:14px;"> <b>Step 2: Window selection</b> The distribution of the preintervention covariates and postintervention outcomes inside the window $W_i$ where local randomization holds should be the same between treated and untreated patients.     </p>
 
 										<ol>
 											<li>Set an initial arbitrary small window, $\hat{W}_1$
@@ -126,8 +126,14 @@
 										</ol>
 										<p style="font-size:14px;"> The resulting window, $\hat{W}$, is the estimate of $W_i$. The idea of this algorithm is to
 											choose the largest window (or one of the largest windows) in which all the covariates
-											are balanced.</p>
+											are balanced.
+										</p>
 
+										
+										<p style="font-size:14px;"> <b>Step 3: Test of no effect</b> After choosing an appropriate randomization mechanism, we can test the sharp null hypothesis of no treatment effect under Assumption 1. No treatment effect means observed outcomes are fixed regardless of the realization of $A_{W_i}.$ 
+										Under this null hypothesis, potential outcomes are not a function of treatment status inside $W_i$; that is, $y_i(a)=y_i$ for all $i$ within the window and for all $a \in W_i$, where $y_i$ is a fixed scalar. The distribution of any test statistic $T(A_{W_i}, y_{W_i})$ is known, since it depends only on the known distribution of $A_{W_i}$ and $y_{W_i}$, the fixed vector of observed responses. The test thus consists of computing a significance level for the observed value of the test statistic. Any test statistic may be used such as difference-in-means, Kolmogorov-Smirnov test statistic, and difference-in-quantiles.</p>
+										
+										
 
 										<p style="font-size:18px;">Data</p>
 
@@ -161,12 +167,13 @@
 
 										<p style="font-size:18px;">Algorithm's Performance</p>
 
-										<p><a href="HWestimation.html">Click here to see code for generating synthetic data and estimation here!</a></p>
+										<p><a href="HWestimation.html">Click here to see code for generating synthetic data and estimation through a Monte Carlo simulation here!</a></p>
 
-										<p style="font-size:14px;"> Results from the simulation above prove how inside the window, we can treat data as a randomized experiment. We were able to estimate the average treatment effect inside the window assuming that these units can be interpreted as randomly assigned to treatment.</p>
-										<p style="font-size:14px;"> Looking at the code results of the estimation: </p>
-										<p style="font-size:14px;"> $ATE=4.33$ </p>
-										<p style="font-size:14px;"> This result proves that our estimation results are correct given that $\beta=4$ was the parameter used to influence the treatment, $A$, in the equations for the data generation, which matches the ATE results obtained.</p>
+										<p style="font-size:14px;"> Results from the Monte Carlo simulation above prove how inside the window, we can treat data as a randomized experiment. We were able to estimate the average treatment effect inside the window assuming that these units can be interpreted as randomly assigned to treatment.</p>
+										<p style="font-size:14px;"> Looking at the results of the sampling distribution of the ATE (from the code): </p>
+										<p style="font-size:14px;"> $mean(ATE)=4.32$ </p>
+										<p style="font-size:14px;"> $var(ATE)=0.23$ </p>
+										<p style="font-size:14px;"> These results prove that our estimation results are correct given that $\delta=4$ was the parameter used to influence the treatment, $A$, in the equations for the data generation, which matches the sampling distribution of the ATE results obtained.</p>
 										<p style="font-size:14px;"> In general, the RD design under local randomnization has been proved to be useful in many cases, including when the dataset of interest is small, the running variable is not continuous, matching techniques are used, or multiple RD cutoffs are analyzed.$^4$ </p>
 
 										
@@ -338,7 +345,7 @@
 												<li><a href="Definition.html">Definition</a></li>
 												<li><a href="Identification.html">Identification</a></li>
 												<li><a href="Estimation.html">Estimation</a></li>
-												<li><a href="#">Sensitivity</a></li>
+												<li><a href="Sensitivity.html">Sensitivity</a></li>
 												<li><a href="#">Conclusion</a></li>
 											</ul>
 										</li>
